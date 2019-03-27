@@ -94,18 +94,20 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="14*"></ColumnDefinition>
-                <ColumnDefinition Width="24*"></ColumnDefinition>
+                <ColumnDefinition Width="28*"></ColumnDefinition>
+                <ColumnDefinition Width="48*"></ColumnDefinition>
                 <ColumnDefinition Width="56"></ColumnDefinition>
-                <ColumnDefinition Width="541*"></ColumnDefinition>
+                <ColumnDefinition Width="40*"></ColumnDefinition>
+                <ColumnDefinition Width="49*"></ColumnDefinition>
+                <ColumnDefinition Width="991*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" FontSize="18" FontWeight="Bold" Text="ColorOne:" RenderTransformOrigin="1.122,0.792" Grid.ColumnSpan="3"/>
             <TextBlock Grid.Column="0" Grid.Row="1" FontSize="17" FontWeight="Bold" Text="R:"/>
             <TextBlock Grid.Column="0" Grid.Row="2" FontSize="17" FontWeight="Bold" Text="G:"/>
             <TextBlock Grid.Column="0" Grid.Row="3" FontSize="17" FontWeight="Bold" Text="B:"/>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="ShowColorOneR" TextChanged="ShowColorOneR_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="255" Margin="0,0,1,0"/>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="ShowColorOneG" TextChanged="ShowColorOneR_Changed"  PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="ShowColorOneB" TextChanged="ShowColorOneR_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="ShowColorOneR" TextChanged="ShowColor_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="255" Margin="0,0,1,0"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="ShowColorOneG" TextChanged="ShowColor_Changed"  PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="ShowColorOneB" TextChanged="ShowColor_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
             <DockPanel Grid.Column="2" Grid.Row="1" LastChildFill="False">
                 <Button x:Name="MinusColorOneR" Click="MinusColorOneR_Click"  Width="28" FontSize="18" FontWeight="ExtraBold"  Content="-"/>
                 <Button x:Name="PlusColorOneR" Click="PlusColorOneR_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
@@ -118,7 +120,26 @@
                 <Button x:Name="MinusColorOneB" Click="MinusColorOneB_Click" Width="28" FontSize="18" FontWeight="ExtraBold"  Content="-"/>
                 <Button x:Name="PlusColorOneB"  Click="PlusColorOneB_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
             </DockPanel>
+            <TextBlock Grid.Column="3" Grid.Row="0" FontSize="18" FontWeight="Bold" Text="ColorTwo:" RenderTransformOrigin="1.122,0.792" Grid.ColumnSpan="2"/>
+            <TextBlock Grid.Column="3" Grid.Row="1" FontSize="17" FontWeight="Bold" Text="R:" Margin="10,0,0,0"/>
+            <TextBlock Grid.Column="3" Grid.Row="2" FontSize="17" FontWeight="Bold" Text="G:" Margin="10,0,0,0"/>
+            <TextBlock Grid.Column="3" Grid.Row="3" FontSize="17" FontWeight="Bold" Text="B:" Margin="10,0,0,0"/>
+            <TextBox Grid.Column="4" Grid.Row="1" x:Name="ShowColorTwoR" TextChanged="ShowColor_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
+            <TextBox Grid.Column="4" Grid.Row="2" x:Name="ShowColorTwoG" TextChanged="ShowColor_Changed"  PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="0" Margin="0,0,1,0"/>
+            <TextBox Grid.Column="4" Grid.Row="3" x:Name="ShowColorTwoB" TextChanged="ShowColor_Changed" PreviewTextInput="ShowColor_PreviewTextInput" PreviewKeyDown="ShowColor_PreviewKeyDown" FontSize="17" FontWeight="Bold" Foreground="Red" Text="255" Margin="0,0,1,0"/>
+            <DockPanel Grid.Column="5" Grid.Row="1" LastChildFill="False" Margin="0,0,4,0">
+                <Button x:Name="MinusColorTwoR" Click="MinusColorTwoR_Click"  Width="28" FontSize="18" FontWeight="ExtraBold"  Content="-"/>
+                <Button x:Name="PlusColorTwoR" Click="PlusColorTwoR_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
+            </DockPanel>
+            <DockPanel Grid.Column="5" Grid.Row="2" LastChildFill="False" Margin="0,0,4,0">
+                <Button x:Name="MinusColorTwoG" Click="MinusColorTwoG_Click" Width="28" FontSize="18" FontWeight="ExtraBold"  Content="-"/>
+                <Button x:Name="PlusColorTwoG"  Click="PlusColorTwoG_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
+            </DockPanel>
+            <DockPanel Grid.Column="5" Grid.Row="3" LastChildFill="False">
+                <Button x:Name="MinusColorTwoB" Click="MinusColorTwoB_Click" Width="28" FontSize="18" FontWeight="ExtraBold"  Content="-"/>
+                <Button x:Name="PlusColorTwoB" Click="PlusColorTwoB_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
+            </DockPanel>
         </Grid>
-        <TextBlock x:Name="testBlock" DockPanel.Dock="Top" Text="First"></TextBlock>
+        <TextBox x:Name="codeBox" DockPanel.Dock="Top" Height="300"></TextBox>
     </DockPanel>
 </Window>

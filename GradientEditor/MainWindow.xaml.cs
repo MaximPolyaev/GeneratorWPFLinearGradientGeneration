@@ -34,14 +34,26 @@ namespace GradientEditor
         byte colorOneR = 255;
         byte colorOneG = 0;
         byte colorOneB = 0;
+        byte colorTwoR = 0;
+        byte colorTwoG = 0;
+        byte colorTwoB = 255;
 
         public MainWindow()
         {
             LinearGradientBrush myBrush = FindResource("mainBrush") as LinearGradientBrush;
             myBrush = myBrush.Clone();
             staticBrush = myBrush;
-            InitializeComponent();
             
+
+            InitializeComponent();
+            staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
+            staticBrush.GradientStops[1].Color = Color.FromRgb(colorTwoR, colorTwoG, colorTwoB);
+            codeBox.Text = "<LinearGradientBrush x:Key=\"mainBrush\" StartPoint=\"0,0\" EndPoint=\"1,1\"\n" +
+                                "\t<GradientStopCollection>\n" +
+                                    "\t\t<GradientStop Color = \"Red\" Offset = \"0\" />\n" +
+                                    "\t\t<GradientStop Color = \"Blue\" Offset = \"1\" />\n" +
+                                "\t</GradientStopCollection>\n" +
+                            "</LinearGradientBrush>";
         }
 
         private void Slider_StartPointFirst(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -147,7 +159,43 @@ namespace GradientEditor
             else ShowColorOneB.Text = (int.Parse(ShowColorOneB.Text.ToString())) == 255 ? "255" : (int.Parse(ShowColorOneB.Text.ToString()) + 1).ToString();
         }
 
-        private void ShowColorOneR_Changed(object sender, TextChangedEventArgs e)
+        private void MinusColorTwoR_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoR.Text.ToString() == "") ShowColorTwoR.Text = "0";
+            else ShowColorTwoR.Text = (int.Parse(ShowColorTwoR.Text.ToString())) == 0 ? "0" : (int.Parse(ShowColorTwoR.Text.ToString()) - 1).ToString();
+        }
+
+        private void PlusColorTwoR_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoR.Text.ToString() == "") ShowColorTwoR.Text = "0";
+            else ShowColorTwoR.Text = (int.Parse(ShowColorTwoR.Text.ToString())) == 255 ? "255" : (int.Parse(ShowColorTwoR.Text.ToString()) + 1).ToString();
+        }
+
+        private void MinusColorTwoG_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoG.Text.ToString() == "") ShowColorTwoG.Text = "0";
+            else ShowColorTwoG.Text = (int.Parse(ShowColorTwoG.Text.ToString())) == 0 ? "0" : (int.Parse(ShowColorTwoG.Text.ToString()) - 1).ToString();
+        }
+
+        private void PlusColorTwoG_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoG.Text.ToString() == "") ShowColorTwoG.Text = "0";
+            else ShowColorTwoG.Text = (int.Parse(ShowColorTwoG.Text.ToString())) == 255 ? "255" : (int.Parse(ShowColorTwoG.Text.ToString()) + 1).ToString();
+        }
+
+        private void MinusColorTwoB_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoB.Text.ToString() == "") ShowColorTwoB.Text = "0";
+            else ShowColorTwoB.Text = (int.Parse(ShowColorTwoB.Text.ToString())) == 0 ? "0" : (int.Parse(ShowColorTwoB.Text.ToString()) - 1).ToString();
+        }
+
+        private void PlusColorTwoB_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowColorTwoB.Text.ToString() == "") ShowColorTwoB.Text = "0";
+            else ShowColorTwoB.Text = (int.Parse(ShowColorTwoB.Text.ToString())) == 255 ? "255" : (int.Parse(ShowColorTwoB.Text.ToString()) + 1).ToString();
+        }
+
+        private void ShowColor_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             switch(textBox.Name.ToString())
@@ -161,13 +209,35 @@ namespace GradientEditor
                 case "ShowColorOneB":
                     colorOneB = textBox.Text.ToString() == "" ? (byte)0 : byte.Parse(textBox.Text.ToString());
                     break;
+                case "ShowColorTwoR":
+                    colorTwoR = textBox.Text.ToString() == "" ? (byte)0 : byte.Parse(textBox.Text.ToString());
+                    break;
+                case "ShowColorTwoG":
+                    colorTwoG = textBox.Text.ToString() == "" ? (byte)0 : byte.Parse(textBox.Text.ToString());
+                    break;
+                case "ShowColorTwoB":
+                    colorTwoB = textBox.Text.ToString() == "" ? (byte)0 : byte.Parse(textBox.Text.ToString());
+                    break;
                 default:
                     MessageBox.Show("Error!");
                     break;
             }
             
+            if(textBox.Name.ToString() == "ShowColorOneR" || textBox.Name.ToString() == "ShowColorOneG" || textBox.Name.ToString() == "ShowColorOneB")
+            {
+                staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
+            }
+            else if(textBox.Name.ToString() == "ShowColorTwoR" || textBox.Name.ToString() == "ShowColorTwoG" || textBox.Name.ToString() == "ShowColorTwoB")
+            {
+                staticBrush.GradientStops[1].Color = Color.FromRgb(colorTwoR, colorTwoG, colorTwoB);
+                
+            } 
+            else
+            {
+                MessageBox.Show("Set color error in " + textBox.Name.ToString());
+            }
 
-            staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
+
             MainGradient.Background = staticBrush;
         }
     }

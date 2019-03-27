@@ -70,7 +70,7 @@
                 <ColumnDefinition Width="69*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontSize="18" FontWeight="Bold" Margin="10,0,5,0">OffsetFirst:</TextBlock>
-            <TextBlock Grid.Column="2" x:Name="ShowOffsetFirst" FontSize="18" FontWeight="Bold" Foreground="Red" Margin="0,0,10,0" Text="1"/>
+            <TextBlock Grid.Column="2" x:Name="ShowOffsetFirst" FontSize="18" FontWeight="Bold" Foreground="Red" Margin="0,0,10,0" Text="0"/>
             <Slider Grid.Column="1" Value="0" Minimum="-1.0" Maximum="1.0" SelectionStart="-1.0" IsSelectionRangeEnabled="True" ValueChanged="Slider_OffsetFirst" Margin="0 0 10 0" VerticalAlignment="Center"/>
         </Grid>
         <Grid DockPanel.Dock="Top">

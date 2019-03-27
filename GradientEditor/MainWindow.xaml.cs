@@ -26,10 +26,13 @@ namespace GradientEditor
     {
         private LinearGradientBrush staticBrush = new LinearGradientBrush();
 
-        double oldStartPointFirst;
-        double oldStartPointSecond;
-        double oldEndPointFirst;
-        double oldEndPointSecond;
+        double oldStartPointFirst = 0;
+        double oldStartPointSecond = 0;
+        double oldEndPointFirst = 1;
+        double oldEndPointSecond = 1;
+
+        double offsetFirst = 0;
+        double offsetSecond = 1;
 
         byte colorOneR = 255;
         byte colorOneG = 0;
@@ -48,12 +51,26 @@ namespace GradientEditor
             InitializeComponent();
             staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
             staticBrush.GradientStops[1].Color = Color.FromRgb(colorTwoR, colorTwoG, colorTwoB);
-            codeBox.Text = "<LinearGradientBrush x:Key=\"mainBrush\" StartPoint=\"0,0\" EndPoint=\"1,1\"\n" +
+            UpdateCodeBox();
+        }
+
+        private void UpdateCodeBox(double startPointFirst = 0, double startPointSecond = 0, double endPointFirst = 1, double endPointSecond = 1)
+        {
+            string hexColorOne = "#" + 
+                (colorOneR == 0 ? "00" : colorOneR < 10 ? "0" + Convert.ToString(colorOneR, 16).ToUpper() : Convert.ToString(colorOneR, 16).ToUpper()) +
+                (colorOneG == 0 ? "00" : colorOneG < 10 ? "0" + Convert.ToString(colorOneG, 16).ToUpper() : Convert.ToString(colorOneG, 16).ToUpper()) +
+                (colorOneB == 0 ? "00" : colorOneB < 10 ? "0" + Convert.ToString(colorOneB, 16).ToUpper() : Convert.ToString(colorOneB, 16).ToUpper());
+            string hexColorTwo = "#" +
+                (colorTwoR == 0 ? "00" : colorTwoR < 10 ? "0" + Convert.ToString(colorTwoR, 16).ToUpper() : Convert.ToString(colorTwoR, 16).ToUpper()) +
+                (colorTwoG == 0 ? "00" : colorTwoG < 10 ? "0" + Convert.ToString(colorTwoG, 16).ToUpper() : Convert.ToString(colorTwoG, 16).ToUpper()) +
+                (colorTwoB == 0 ? "00" : colorTwoB < 10 ? "0" + Convert.ToString(colorTwoB, 16).ToUpper() : Convert.ToString(colorTwoB, 16).ToUpper());
+            codeBox.Text = "<LinearGradientBrush x:Key=\"mainBrush\" StartPoint=\"" + startPointFirst + "," + startPointSecond + "\" EndPoint=\"" + endPointFirst + "," + endPointSecond + "\"\n" +
                                 "\t<GradientStopCollection>\n" +
-                                    "\t\t<GradientStop Color = \"Red\" Offset = \"0\" />\n" +
-                                    "\t\t<GradientStop Color = \"Blue\" Offset = \"1\" />\n" +
+                                    "\t\t<GradientStop Color = \"" + hexColorOne + "\" Offset = \"" + offsetFirst + "\" />\n" +
+                                    "\t\t<GradientStop Color = \"" + hexColorTwo + "\" Offset = \"" + offsetSecond + "\" />\n" +
                                 "\t</GradientStopCollection>\n" +
                             "</LinearGradientBrush>";
+            
         }
 
         private void Slider_StartPointFirst(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -61,6 +78,7 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowStartPointFirst.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.StartPoint = new Point(oldStartPointFirst = Math.Round(e.NewValue, 2), oldStartPointSecond != 0 ? oldStartPointSecond : 0);
+            UpdateCodeBox(Math.Round(e.NewValue, 2), oldStartPointSecond, oldEndPointFirst, oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
 
@@ -69,6 +87,7 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowStartPointSecond.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.StartPoint = new Point(oldStartPointFirst != 0 ? oldStartPointFirst : 0, oldStartPointSecond = Math.Round(e.NewValue, 2));
+            UpdateCodeBox(oldStartPointFirst, Math.Round(e.NewValue, 2), oldEndPointFirst, oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
         

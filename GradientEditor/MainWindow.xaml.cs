@@ -46,15 +46,15 @@ namespace GradientEditor
             LinearGradientBrush myBrush = FindResource("mainBrush") as LinearGradientBrush;
             myBrush = myBrush.Clone();
             staticBrush = myBrush;
-            
 
+            
             InitializeComponent();
             staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
             staticBrush.GradientStops[1].Color = Color.FromRgb(colorTwoR, colorTwoG, colorTwoB);
             UpdateCodeBox();
         }
 
-        private void UpdateCodeBox(double startPointFirst = 0, double startPointSecond = 0, double endPointFirst = 1, double endPointSecond = 1)
+        public void UpdateCodeBox(double startPointFirst = 0, double startPointSecond = 0, double endPointFirst = 1, double endPointSecond = 1)
         {
             string hexColorOne = "#" + 
                 (colorOneR == 0 ? "00" : colorOneR < 10 ? "0" + Convert.ToString(colorOneR, 16).ToUpper() : Convert.ToString(colorOneR, 16).ToUpper()) +
@@ -64,13 +64,23 @@ namespace GradientEditor
                 (colorTwoR == 0 ? "00" : colorTwoR < 10 ? "0" + Convert.ToString(colorTwoR, 16).ToUpper() : Convert.ToString(colorTwoR, 16).ToUpper()) +
                 (colorTwoG == 0 ? "00" : colorTwoG < 10 ? "0" + Convert.ToString(colorTwoG, 16).ToUpper() : Convert.ToString(colorTwoG, 16).ToUpper()) +
                 (colorTwoB == 0 ? "00" : colorTwoB < 10 ? "0" + Convert.ToString(colorTwoB, 16).ToUpper() : Convert.ToString(colorTwoB, 16).ToUpper());
-            codeBox.Text = "<LinearGradientBrush x:Key=\"mainBrush\" StartPoint=\"" + startPointFirst + "," + startPointSecond + "\" EndPoint=\"" + endPointFirst + "," + endPointSecond + "\"\n" +
-                                "\t<GradientStopCollection>\n" +
-                                    "\t\t<GradientStop Color = \"" + hexColorOne + "\" Offset = \"" + offsetFirst + "\" />\n" +
-                                    "\t\t<GradientStop Color = \"" + hexColorTwo + "\" Offset = \"" + offsetSecond + "\" />\n" +
-                                "\t</GradientStopCollection>\n" +
-                            "</LinearGradientBrush>";
-            
+
+            string local_startPointFirst  = startPointFirst.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string local_startPointSecond = startPointSecond.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string local_endPointFirst    = endPointFirst.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string local_endPointSecond   = endPointSecond.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string local_offsetFirst      = offsetFirst.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string local_offsetSecond     = offsetSecond.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+
+            if (_codeBox != null)
+            {
+                _codeBox.Text = "<LinearGradientBrush x:Key=\"mainBrush\" StartPoint=\"" + local_startPointFirst + "," + local_startPointSecond + "\" EndPoint=\"" + local_endPointFirst + "," + local_endPointSecond + "\"\n" +
+                               "\t<GradientStopCollection>\n" +
+                                   "\t\t<GradientStop Color = \"" + hexColorOne + "\" Offset = \"" + local_offsetFirst + "\" />\n" +
+                                   "\t\t<GradientStop Color = \"" + hexColorTwo + "\" Offset = \"" + local_offsetSecond + "\" />\n" +
+                               "\t</GradientStopCollection>\n" +
+                           "</LinearGradientBrush>";
+            } 
         }
 
         private void Slider_StartPointFirst(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -96,6 +106,7 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowEndPointFirst.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.EndPoint = new Point(oldEndPointFirst = Math.Round(e.NewValue, 2), oldEndPointSecond != 0 ? oldEndPointSecond : 0);
+            UpdateCodeBox(oldStartPointFirst, oldStartPointSecond, Math.Round(e.NewValue, 2), oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
 
@@ -104,6 +115,7 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowEndPointSecond.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.EndPoint = new Point(oldEndPointFirst != 0 ? oldEndPointFirst : 0, oldEndPointSecond = Math.Round(e.NewValue, 2));
+            UpdateCodeBox(oldStartPointFirst, oldStartPointSecond, oldEndPointFirst, Math.Round(e.NewValue, 2));
             MainGradient.Background = staticBrush;
         }
 
@@ -112,6 +124,8 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowOffsetFirst.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.GradientStops[0].Offset = Math.Round(e.NewValue, 2);
+            offsetFirst = Math.Round(e.NewValue, 2);
+            UpdateCodeBox(oldStartPointFirst, oldStartPointSecond, oldEndPointFirst, oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
 
@@ -120,6 +134,8 @@ namespace GradientEditor
             ((Slider)sender).SelectionEnd = Math.Round(e.NewValue, 2);
             ShowOffsetSecond.Text = Math.Round(e.NewValue, 2).ToString();
             staticBrush.GradientStops[1].Offset = Math.Round(e.NewValue, 2);
+            offsetSecond = Math.Round(e.NewValue, 2);
+            UpdateCodeBox(oldStartPointFirst, oldStartPointSecond, oldEndPointFirst, oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
 
@@ -256,7 +272,7 @@ namespace GradientEditor
                 MessageBox.Show("Set color error in " + textBox.Name.ToString());
             }
 
-
+            UpdateCodeBox(oldStartPointFirst, oldStartPointSecond, oldEndPointFirst, oldEndPointSecond);
             MainGradient.Background = staticBrush;
         }
     }

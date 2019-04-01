@@ -140,6 +140,6 @@
                 <Button x:Name="PlusColorTwoB" Click="PlusColorTwoB_Click" FontSize="18" FontWeight="ExtraBold"  Content="+" Width="28"/>
             </DockPanel>
         </Grid>
-        <TextBox x:Name="codeBox" DockPanel.Dock="Top" Height="300"></TextBox>
+        <TextBox x:Name="_codeBox" DockPanel.Dock="Top" Height="300"></TextBox>
     </DockPanel>
 </Window>

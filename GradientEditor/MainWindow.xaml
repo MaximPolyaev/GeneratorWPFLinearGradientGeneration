@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Gradient Editor" Height="756" Width="1220">
     <DockPanel LastChildFill="false" Background="#FFE8E8E8">
-        <TextBlock x:Name="MainGradient" Height="80" DockPanel.Dock="Top" Background="{StaticResource mainBrush}" />
+        <TextBlock x:Name="MainGradient" Height="80" DockPanel.Dock="Top" Background="{DynamicResource mainBrush}" />
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

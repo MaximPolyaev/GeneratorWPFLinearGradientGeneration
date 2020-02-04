@@ -47,13 +47,13 @@ namespace GradientEditor
             myBrush = myBrush.Clone();
             staticBrush = myBrush;
 
-            
+            // test 
             InitializeComponent();
             staticBrush.GradientStops[0].Color = Color.FromRgb(colorOneR, colorOneG, colorOneB);
             staticBrush.GradientStops[1].Color = Color.FromRgb(colorTwoR, colorTwoG, colorTwoB);
             UpdateCodeBox();
         }
-
+        
         public void UpdateCodeBox(double startPointFirst = 0, double startPointSecond = 0, double endPointFirst = 1, double endPointSecond = 1)
         {
             string hexColorOne = "#" + 
